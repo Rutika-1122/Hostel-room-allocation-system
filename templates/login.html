@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Hostel Room Allocation System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+  <div class="login-card">
+    <div class="icon-container">
+      <img src="{{ url_for('static', filename='images/hostel-icon.svg') }}" alt="Hostel Icon">
+    </div>
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Sign in to your Hostel Room Allocation account</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message {{ category }}">
+            <span>{{ message }}</span>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form id="login-form" method="POST" action="{{ url_for('auth.login') }}">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrapper">
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            placeholder="e.g. user@example.com" 
+            required 
+            autocomplete="email"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            placeholder="Enter your password" 
+            required 
+            autocomplete="current-password"
+          >
+        </div>
+      </div>
+
+      <button type="submit" id="login-btn" class="btn-login">Sign In</button>
+    </form>
+
+    <div class="register-link-container">
+      Don't have an account? <a id="register-link" href="{{ url_for('auth.register') }}">Register here</a>
+    </div>
+  </div>
+</body>
+</html>

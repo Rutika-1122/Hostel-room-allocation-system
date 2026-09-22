@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Hostel Room Allocation System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+  <header class="navbar">
+    <a href="{{ url_for('main.dashboard') }}" class="nav-brand">
+      <img src="{{ url_for('static', filename='images/hostel-icon.svg') }}" alt="Hostel Icon">
+      <span>Hostel Allocation</span>
+    </a>
+    <div class="nav-user">
+      <div class="user-badge">
+        <span>{{ user.name }}</span>
+        <span class="role-tag">{{ user.role }}</span>
+      </div>
+      <a href="{{ url_for('auth.logout') }}" class="btn-logout">Logout</a>
+    </div>
+  </header>
+
+  <main class="main-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="welcome-header">
+      <h1>Welcome back, {{ user.name }}</h1>
+      <p>Manage your room requests, profile, and allocation status from here.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">User Profile</div>
+        <div class="detail-row">
+          <span class="detail-label">Full Name</span>
+          <span class="detail-data">{{ user.name }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Email</span>
+          <span class="detail-data">{{ user.email }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Role</span>
+          <span class="detail-data">{{ user.role }}</span>
+        </div>
+        {% if user.student_id %}
+        <div class="detail-row">
+          <span class="detail-label">Student ID</span>
+          <span class="detail-data">{{ user.student_id }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="card">
+        <div class="card-title">System Overview</div>
+        <div class="detail-row">
+          <span class="detail-label">Total Rooms</span>
+          <span class="detail-data">{{ rooms_count }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Room Requests</span>
+          <span class="detail-data">{{ requests_count }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Account Status</span>
+          <span class="detail-data" style="color: #15803d;">Active</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions-section">
+      <h2>Quick Actions</h2>
+      <div class="action-buttons">
+        <a href="{{ url_for('main.rooms') }}" class="btn-action">View Rooms</a>
+        {% if user.role == 'Hostel Administrator' %}
+        <a href="{{ url_for('auth.register') }}" class="btn-action btn-secondary">Register New Student</a>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+</body>
+</html>

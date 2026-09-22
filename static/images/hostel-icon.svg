@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <!-- Building Base -->
+  <rect x="10" y="16" width="44" height="42" rx="4" fill="#008080" />
+  <!-- Roof -->
+  <polygon points="32,4 6,18 58,18" fill="#006666" />
+  <!-- Windows -->
+  <rect x="16" y="22" width="8" height="8" rx="1" fill="#e6f7f2" />
+  <rect x="28" y="22" width="8" height="8" rx="1" fill="#e6f7f2" />
+  <rect x="40" y="22" width="8" height="8" rx="1" fill="#e6f7f2" />
+  <rect x="16" y="34" width="8" height="8" rx="1" fill="#e6f7f2" />
+  <rect x="28" y="34" width="8" height="8" rx="1" fill="#e6f7f2" />
+  <rect x="40" y="34" width="8" height="8" rx="1" fill="#e6f7f2" />
+  <!-- Main Entrance / Door -->
+  <rect x="26" y="46" width="12" height="12" rx="1" fill="#ffffff" />
+  <!-- Roof crest / flag -->
+  <line x1="32" y1="4" x2="32" y2="1" stroke="#004d4d" stroke-width="2" />
+  <polygon points="32,1 38,3 32,5" fill="#20b2aa" />
+</svg>

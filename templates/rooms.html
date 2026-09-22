@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rooms - Hostel Room Allocation System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <style>
+    .table-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th {
+      background: #f8fafc;
+      padding: 14px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    td {
+      padding: 14px 18px;
+      font-size: 14px;
+      color: #1e293b;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .empty-state {
+      padding: 40px;
+      text-align: center;
+      color: #64748b;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .status-available {
+      background: #def7ec;
+      color: #03543f;
+    }
+    .status-full {
+      background: #fde8e8;
+      color: #9b1c1c;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <a href="{{ url_for('main.dashboard') }}" class="nav-brand">
+      <img src="{{ url_for('static', filename='images/hostel-icon.svg') }}" alt="Hostel Icon">
+      <span>Hostel Allocation</span>
+    </a>
+    <div class="nav-user">
+      <a href="{{ url_for('main.dashboard') }}" class="btn-action btn-secondary" style="padding: 6px 14px; font-size: 13px;">Dashboard</a>
+      <a href="{{ url_for('auth.logout') }}" class="btn-logout">Logout</a>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <div class="welcome-header">
+      <h1>Hostel Rooms</h1>
+      <p>Browse room availability and details.</p>
+    </div>
+
+    <div class="table-card">
+      {% if rooms %}
+      <table>
+        <thead>
+          <tr>
+            <th>Room No</th>
+            <th>Type</th>
+            <th>Capacity</th>
+            <th>Available Beds</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in rooms %}
+          <tr>
+            <td style="font-weight: 600;">{{ r.room_number }}</td>
+            <td>{{ r.room_type }}</td>
+            <td>{{ r.capacity }}</td>
+            <td>{{ r.available_beds }}</td>
+            <td>
+              <span class="status-badge {% if r.available_beds > 0 %}status-available{% else %}status-full{% endif %}">
+                {{ r.status }}
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty-state">
+        <p>No rooms currently available in the database.</p>
+      </div>
+      {% endif %}
+    </div>
+  </main>
+</body>
+</html>
